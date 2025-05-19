@@ -20,7 +20,7 @@
 
 .article header img {
   border-radius: 8px;
-  box-shadow: 0 16px 24px rgba(0, 0, 0, 0.24);
+  box-shadow: var(--img-shadow);
 }
 
 /* Textos */
