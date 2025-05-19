@@ -1,0 +1,14 @@
+.ul {
+  list-style: none;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+}
+
+.ul li {
+  display: flex;
+
+  color: var(--medium-gray);
+}

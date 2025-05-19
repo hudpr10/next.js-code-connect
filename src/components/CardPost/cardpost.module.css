@@ -1,0 +1,60 @@
+/* Post */
+.article {
+  display: flex;
+  flex-direction: column;
+
+  width: min-content;
+  height: min-content;
+}
+
+/* Imagem */
+.article header {
+  border-radius: 8px 8px 0 0;
+  background-color: var(--medium-gray);
+  padding: 24px;
+}
+
+.article figure {
+  display: flex;
+}
+
+.article header img {
+  border-radius: 8px;
+  box-shadow: 0 16px 24px rgba(0, 0, 0, 0.24);
+}
+
+/* Textos */
+.article main {
+  background-color: var(--dark-gray);
+  padding: 16px;
+  border-radius: 0 0 8px 8px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.article main h3 {
+  color: var(--light-gray);
+  font-weight: 600;
+  font-size: 1.125rem;
+}
+
+.article main p {
+  color: var(--light-gray);
+  font-size: 400;
+  font-size: 0.93rem;
+
+  margin: 8px 0;
+}
+
+.article a {
+  font-weight: 400;
+  font-size: 1.125rem;
+  color: var(--highlight-green);
+}
+
+/* Perfil */
+.article footer {
+  align-self: flex-end;
+}

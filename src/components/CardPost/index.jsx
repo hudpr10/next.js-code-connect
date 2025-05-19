@@ -1,9 +1,10 @@
 import Image from "next/image";
 import Avatar from "../Avatar";
+import styles from './cardpost.module.css';
 
 const CardPost = ({ post }) => {
   return (
-    <article>
+    <article className={styles.article}>
       <header>
         <figure>
           <Image 
@@ -14,15 +15,18 @@ const CardPost = ({ post }) => {
         </figure>
       </header>
       <main>
-        <h3>{post.title}</h3>
-        <p>{post.body}</p>
+        <div>
+          <h3>{post.title}</h3>
+          <p>{post.body}</p>
+          <a href="">Ver detalhes</a>
+        </div>
+        <footer>
+          <Avatar 
+            imgSrc={post.author.avatar} 
+            name={post.author.username} 
+          />
+        </footer>
       </main>
-      <footer>
-        <Avatar 
-          imgSrc={post.author.avatar} 
-          name={post.author.username} 
-        />
-      </footer>
     </article>
   );
 }
