@@ -15,7 +15,7 @@ const CardPost = ({ post }) => {
       </header>
       <main>
         <h3>{post.title}</h3>
-        <p>{post.slug}</p>
+        <p>{post.body}</p>
       </main>
       <footer>
         <Avatar 
