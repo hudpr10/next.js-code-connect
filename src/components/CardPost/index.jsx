@@ -6,7 +6,11 @@ const CardPost = ({ post }) => {
     <article>
       <header>
         <figure>
-          <Image src={post.cover} width={438} height={133} />
+          <Image 
+            src={post.cover} 
+            width={438} 
+            height={133} 
+            alt={`Imagem do post: ${post.title}`} />
         </figure>
       </header>
       <main>
@@ -15,7 +19,7 @@ const CardPost = ({ post }) => {
       </main>
       <footer>
         <Avatar 
-          imageSrc={post.author.avatar} 
+          imgSrc={post.author.avatar} 
           name={post.author.username} 
         />
       </footer>
