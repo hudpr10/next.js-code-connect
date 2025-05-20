@@ -1,30 +1,44 @@
 import CardPost from "@/components/CardPost";
 import logger from "@/logger";
 import styles from "./page.module.css";
+import Link from "next/link";
 
-async function getAllPosts() {
+async function getAllPosts(page) {
   try {
-    const response = await fetch("http://localhost:3042/posts");
+    const response = await fetch(`http://localhost:3042/posts?_page=${page}&_per_page=6`);
+    const responseJson = await response.json();
 
     if(!response.ok) {
-      logger.error("Ops, alguma coisa ocorreu mal.");
       return [];
     } else {
       logger.info("Posts obtidos com sucesso!");
     }
 
-    return response.json();
+    return responseJson;
   } catch(e) {
     logger.error("Erro: " + e);
   }
 }
 
-export default async function Home() {
-  const posts = await getAllPosts();
+export default async function Home({ searchParams }) {
+  // searchParams são os paramentos de busca na navegação! ?page=1, ?page=2...
+  const currentPage = searchParams?.page || 1;
+  const { data, prev, next } = await getAllPosts(currentPage);
 
   return (
       <main className={styles.main}>
-        {posts.map((post) => <CardPost post={post}/> )}
+        {data.map((post) => 
+          <CardPost 
+            key={post.id} 
+            post={post}
+          />
+        )}
+        {/* <Link> funciona como uma tag <a> super poderosa! */}
+        <footer className={styles.footer}>
+          <Link href={`/?page=${prev}`} className={next ? styles.disabled : styles.enable}>Página anterior</Link>
+          <span>{currentPage}</span>
+          <Link href={`/?page=${next}`} className={prev ? styles.disabled : styles.enable}>Próxima página</Link>
+        </footer>
       </main>
   );
 }

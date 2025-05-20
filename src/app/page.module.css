@@ -6,3 +6,37 @@
   justify-content: space-between;
   width: 100%;
 }
+
+/* Pagination! */
+.footer {
+  grid-column: 1 / -1;
+  justify-self: center;
+
+  display: flex;
+  gap: 16px;
+}
+
+.footer span {
+  line-height: 24px;
+  text-align: center;
+  
+  border-radius: 100%;
+  width: 24px;
+  height: 24px;
+
+  background-color: var(--normal-green);
+}
+
+.enable {
+  color: var(--normal-green);
+}
+
+.enable:hover {
+  color: var(--highlight-green);
+  transition: 200ms;
+}
+
+.disabled {
+  pointer-events: none;
+  color: var(--medium-gray);
+}

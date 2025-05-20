@@ -1,3 +1,5 @@
 {"level":"error","message":"Erro: TypeError: fetch failed"}
 {"level":"error","message":"Erro: TypeError: fetch failed"}
 {"level":"error","message":"Erro: TypeError: fetch failed"}
+{"level":"error","message":"Erro: TypeError: Cannot read properties of undefined (reading 'json')"}
+{"level":"error","message":"Erro: TypeError: Cannot read properties of undefined (reading 'json')"}
