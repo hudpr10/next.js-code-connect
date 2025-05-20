@@ -17,7 +17,6 @@
 html {
   background: linear-gradient(180deg, #0E1112 0%, #00090E 100%);
   background-repeat: no-repeat;
-  height: 100vh;
 }
 
 .app-container {
