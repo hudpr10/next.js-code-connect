@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Avatar from "../Avatar";
 import styles from './cardpost.module.css';
+import Link from "next/link";
 
 const CardPost = ({ post }) => {
   return (
@@ -18,10 +19,10 @@ const CardPost = ({ post }) => {
         <div>
           <h3>{post.title}</h3>
           <p>{post.body}</p>
-          <a href="">Ver detalhes</a>
+          <Link href={`/posts/${post.slug}`}>Ver detalhes</Link>
         </div>
         <footer>
-          <Avatar 
+          <Avatar
             imgSrc={post.author.avatar} 
             name={post.author.username} 
           />
