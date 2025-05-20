@@ -1,9 +1,8 @@
 .main {
   display: grid;
   grid-template-columns: auto auto;
-  row-gap: 24px;
+  gap: 24px;
   
-  justify-content: space-between;
   width: 100%;
 }
 
@@ -27,6 +26,7 @@
   background-color: var(--normal-green);
 }
 
+/* Bloqueando o clique nas paginas */
 .enable {
   color: var(--normal-green);
 }
@@ -39,4 +39,11 @@
 .disabled {
   pointer-events: none;
   color: var(--medium-gray);
+}
+
+/* Responsividade para Tablets */
+@media screen and (max-width: 1170px) {
+  .main {
+    grid-template-columns: auto;
+  }
 }

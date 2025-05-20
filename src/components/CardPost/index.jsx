@@ -7,11 +7,12 @@ const CardPost = ({ post, highlight=false }) => {
   return (
     <article className={styles.article}>
       <header>
-        <figure>
+        <figure 
+          style={{ height: highlight ? 300 : 133 }}>
           <Image 
             src={post.cover} 
-            width={highlight ? 961 : 438}
-            height={highlight ? 300 : 133} 
+            fill={true}
+            objectFit="cover"
             alt={`Imagem do post: ${post.title}`} />
         </figure>
       </header>

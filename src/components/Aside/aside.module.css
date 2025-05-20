@@ -5,3 +5,15 @@
 
   display: flex;
 }
+
+@media screen and (max-width: 1170px) {
+  .aside {
+    background-color: transparent;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .aside {
+    justify-content: center;
+  }
+}

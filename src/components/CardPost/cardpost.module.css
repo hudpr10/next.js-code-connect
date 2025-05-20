@@ -3,7 +3,6 @@
   display: flex;
   flex-direction: column;
 
-  width: min-content;
   height: min-content;
 }
 
@@ -16,6 +15,8 @@
 
 .article figure {
   display: flex;
+  width: 100%;
+  position: relative;
 }
 
 .article header img {
@@ -56,4 +57,11 @@
 /* Perfil */
 .article footer {
   align-self: flex-end;
+}
+
+/* Responsividade para Tablets */
+@media screen and (max-width: 1170px) {
+  .article {
+    width: 100%;
+  }
 }
