@@ -15,7 +15,7 @@
   --img-shadow: 0 16px 24px rgba(0, 0, 0, 0.24);
 }
 
-html {
+body {
   background: linear-gradient(180deg, #0E1112 0%, #00090E 100%);
   background-repeat: no-repeat;
 }
