@@ -3,23 +3,23 @@ import Avatar from "../Avatar";
 import styles from './cardpost.module.css';
 import Link from "next/link";
 
-const CardPost = ({ post }) => {
+const CardPost = ({ post, highlight=false }) => {
   return (
     <article className={styles.article}>
       <header>
         <figure>
           <Image 
             src={post.cover} 
-            width={438} 
-            height={133} 
+            width={highlight ? 961 : 438}
+            height={highlight ? 300 : 133} 
             alt={`Imagem do post: ${post.title}`} />
         </figure>
       </header>
       <main>
         <div>
-          <h3>{post.title}</h3>
+          <h3 style={{ fontSize: highlight ? "1.375rem" : "1.125rem" }}>{post.title}</h3>
           <p>{post.body}</p>
-          <Link href={`/posts/${post.slug}`}>Ver detalhes</Link>
+          {highlight ? null : <Link href={`/posts/${post.slug}`}>Ver detalhes</Link>}
         </div>
         <footer>
           <Avatar

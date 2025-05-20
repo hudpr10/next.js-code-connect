@@ -1,6 +1,10 @@
 import logger from "@/logger";
 import { remark } from 'remark';
 import html from 'remark-html';
+import { JSDOM } from 'jsdom';
+import DOMPurify from 'dompurify';
+import CardPost from "@/components/CardPost";
+import styles from "./page.module.css";
 
 async function getPostBySlug(slug) {
   try {
@@ -18,12 +22,13 @@ async function getPostBySlug(slug) {
       return {};
     }
 
-    const processedContent = await remark()
-      .use(html)
-      .process(post.markdown);
-    const contentHtml = processedContent.toString();
+    const processedContent = await remark().use(html).process(post.markdown);
 
-    post.markdown = contentHtml;
+    const window = new JSDOM('').window;
+    const purify = DOMPurify(window);
+    const sanitized = purify.sanitize(processedContent.toString());
+
+    post.markdown = sanitized;
 
     return post;
   } catch(e) {
@@ -33,11 +38,15 @@ async function getPostBySlug(slug) {
 
 const PostPage = async ({ params }) => {
   const post = await getPostBySlug(params.slug);
-  console.log(post)
-
 
   return(
-    <div dangerouslySetInnerHTML={{ __html: post.markdown }} />
+    <main className={styles.mainPost}>
+      <CardPost post={post} highlight={true} />
+      <div>
+        <h2 className={styles.codeTitle}>Código</h2>
+        <div className={styles.codeBlock} dangerouslySetInnerHTML={{ __html: post.markdown }} />
+      </div>
+    </main>
   )
 }
 
