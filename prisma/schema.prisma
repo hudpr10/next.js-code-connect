@@ -31,6 +31,9 @@ model Post {
   body String
   markdown String
 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   authorId Int
   author User @relation(fields: [authorId], references: [id])
 }
