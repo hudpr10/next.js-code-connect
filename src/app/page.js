@@ -2,21 +2,33 @@ import CardPost from "@/components/CardPost";
 import logger from "@/logger";
 import styles from "./page.module.css";
 import Link from "next/link";
+import db from "../../prisma/db";
+
+// async function getAllPosts(page) {
+//   try {
+//     const response = await fetch(`http://localhost:3042/posts?_page=${page}&_per_page=6`);
+//     const responseJson = await response.json();
+
+//     if(!response.ok) {
+//       return [];
+//     } else {
+//       logger.info("Posts obtidos com sucesso!");
+//     }
+
+//     return responseJson;
+//   } catch(e) {
+//     logger.error("Erro: " + e);
+//   }
+// }
 
 async function getAllPosts(page) {
   try {
-    const response = await fetch(`http://localhost:3042/posts?_page=${page}&_per_page=6`);
-    const responseJson = await response.json();
+    const data = await db.post.findMany();
 
-    if(!response.ok) {
-      return [];
-    } else {
-      logger.info("Posts obtidos com sucesso!");
-    }
-
-    return responseJson;
-  } catch(e) {
-    logger.error("Erro: " + e);
+    return { data, prev: null, next: null };
+  } catch(error) {
+    logger.error("Falha ao obter posts", { error })
+    return { data: [], prev: null, next: null };
   }
 }
 
