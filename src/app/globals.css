@@ -19,6 +19,8 @@
 body {
   background: linear-gradient(180deg, #0E1112 0%, #00090E 100%);
   background-repeat: no-repeat;
+
+  min-height: calc(100vh - 56px);
 }
 
 .app-container {
@@ -35,5 +37,9 @@ body {
     flex-direction: column;
     width: 90%;
     margin: 40px auto;
+  }
+
+  body {
+    min-height: calc(100vh - 40px);
   }
 }

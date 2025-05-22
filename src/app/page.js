@@ -70,9 +70,17 @@ export default async function Home({ searchParams }) {
         )}
         {/* <Link> funciona como uma tag <a> super poderosa! */}
         <footer className={styles.footer}>
-          <Link href={`/?page=${prev}`} className={prev === null ? styles.disabled : styles.enable}>Página anterior</Link>
+          <Link 
+            href={{ pathname: '/', query: { page: prev, q: searchTerm }}} 
+            className={prev === null ? styles.disabled : styles.enable}>
+              Página anterior
+          </Link>
           <span>{currentPage}</span>
-          <Link href={`/?page=${next}`} className={next === null ? styles.disabled : styles.enable}>Próxima página</Link>
+          <Link 
+            href={{ pathname: '/', query: { page: next, q: searchTerm }}} 
+            className={next === null ? styles.disabled : styles.enable}>
+              Próxima página
+          </Link>
         </footer>
       </main>
   );
