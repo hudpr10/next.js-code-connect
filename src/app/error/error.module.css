@@ -1,0 +1,25 @@
+/* Error Page */
+.errorBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: calc(100vh - 56*2px);
+}
+
+.errorBlock h2 {
+  margin-top: 56px;
+  color: var(--highlight-green);
+  font-size: 2.3125rem;
+  font-weight: 500;
+}
+
+.errorBlock p {
+  color: var(--light-gray);
+  font-size: 1.625rem;
+  margin: 16px 0 40px 0;
+}
+
+.errorBlock a {
+  color: var(--normal-green);
+  font-size: 1.125rem;
+}

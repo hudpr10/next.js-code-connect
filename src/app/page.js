@@ -2,28 +2,63 @@ import CardPost from "@/components/CardPost";
 import logger from "@/logger";
 import styles from "./page.module.css";
 import Link from "next/link";
+import db from "../../prisma/db";
 
-async function getAllPosts(page) {
+async function getAllPosts(page, searchTerm) {
   try {
-    const response = await fetch(`http://localhost:3042/posts?_page=${page}&_per_page=6`);
-    const responseJson = await response.json();
+    const where = {}
 
-    if(!response.ok) {
-      return [];
-    } else {
-      logger.info("Posts obtidos com sucesso!");
+    if(searchTerm) {
+      // Filtragem
+      where.title = {
+        contains: searchTerm,
+        mode: "insensitive"
+      }
     }
+    const postsPerPage = 6;
+    const skipPosts = (page - 1) * postsPerPage;
 
-    return responseJson;
-  } catch(e) {
-    logger.error("Erro: " + e);
+    // Pega o total de posts
+    const totalPosts = await db.post.count({ where });
+    // Arredonda pra cima o total de posts divido pela quantidade de posts por pagina
+    const totalPages = Math.ceil(totalPosts / postsPerPage);
+
+    const prev = page > 1 ? page - 1 : null;
+    const next = page < totalPages ? page + 1 : null; 
+
+    const data = await db.post.findMany({
+      // Quantos itens pegar
+      take: postsPerPage,
+
+      // Pula os posts
+      skip: skipPosts,
+
+      // Filtragem
+      where,
+      // Ordem dos posts, em decrescente
+      orderBy: {
+        createdAt: 'desc'
+      },
+
+      // Inclui o relacionamento com author
+      include: {
+        author: true
+      }
+    });
+
+    return { data, prev: prev, next: next };
+  } catch(error) {
+    logger.error("Falha ao obter posts", { error })
+    return { data: [], prev: null, next: null };
   }
 }
 
 export default async function Home({ searchParams }) {
   // searchParams são os paramentos de busca na navegação! ?page=1, ?page=2...
-  const currentPage = searchParams?.page || 1;
-  const { data, prev, next } = await getAllPosts(currentPage);
+  const currentPage = parseInt(searchParams?.page) || 1;
+  const searchTerm = searchParams?.q;
+
+  const { data, prev, next } = await getAllPosts(currentPage, searchTerm);
 
   return (
       <main className={styles.main}>
@@ -35,9 +70,17 @@ export default async function Home({ searchParams }) {
         )}
         {/* <Link> funciona como uma tag <a> super poderosa! */}
         <footer className={styles.footer}>
-          <Link href={`/?page=${prev}`} className={next ? styles.disabled : styles.enable}>Página anterior</Link>
+          <Link 
+            href={{ pathname: '/', query: { page: prev, q: searchTerm }}} 
+            className={prev === null ? styles.disabled : styles.enable}>
+              Página anterior
+          </Link>
           <span>{currentPage}</span>
-          <Link href={`/?page=${next}`} className={prev ? styles.disabled : styles.enable}>Próxima página</Link>
+          <Link 
+            href={{ pathname: '/', query: { page: next, q: searchTerm }}} 
+            className={next === null ? styles.disabled : styles.enable}>
+              Próxima página
+          </Link>
         </footer>
       </main>
   );
