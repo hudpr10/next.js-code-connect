@@ -23,7 +23,7 @@ import db from "../../prisma/db";
 
 async function getAllPosts(page) {
   try {
-    const postsPerPage = 4;
+    const postsPerPage = 6;
     const skipPosts = (page - 1) * postsPerPage;
 
     // Pega o total de posts
@@ -63,8 +63,7 @@ export default async function Home({ searchParams }) {
   // searchParams são os paramentos de busca na navegação! ?page=1, ?page=2...
   const currentPage = parseInt(searchParams?.page) || 1;
   const { data, prev, next } = await getAllPosts(currentPage);
-  console.log(prev);
-  console.log(next);
+
   return (
       <main className={styles.main}>
         {data.map((post) => 
