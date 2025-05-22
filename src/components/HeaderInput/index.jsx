@@ -3,13 +3,17 @@ import styles from "./headerinput.module.css";
 
 const HeaderInput = () => {
   return (
-    <div className={styles.headerContainer}>
+    <form className={styles.headerContainer} action="/">
       <div className={styles.inputAndIcon}>
         <Search />
-        <input type="text" placeholder="Digite o que você procura" />
+        <input 
+          name="q"
+          type="text" 
+          placeholder="Digite o que você procura" 
+        />
       </div>
       <button className={styles.button}>Buscar</button>
-    </div>
+    </form>
   )
 }
 

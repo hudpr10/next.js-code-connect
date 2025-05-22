@@ -4,30 +4,22 @@ import styles from "./page.module.css";
 import Link from "next/link";
 import db from "../../prisma/db";
 
-// async function getAllPosts(page) {
-//   try {
-//     const response = await fetch(`http://localhost:3042/posts?_page=${page}&_per_page=6`);
-//     const responseJson = await response.json();
-
-//     if(!response.ok) {
-//       return [];
-//     } else {
-//       logger.info("Posts obtidos com sucesso!");
-//     }
-
-//     return responseJson;
-//   } catch(e) {
-//     logger.error("Erro: " + e);
-//   }
-// }
-
-async function getAllPosts(page) {
+async function getAllPosts(page, searchTerm) {
   try {
+    const where = {}
+
+    if(searchTerm) {
+      // Filtragem
+      where.title = {
+        contains: searchTerm,
+        mode: "insensitive"
+      }
+    }
     const postsPerPage = 6;
     const skipPosts = (page - 1) * postsPerPage;
 
     // Pega o total de posts
-    const totalPosts = await db.post.count();
+    const totalPosts = await db.post.count({ where });
     // Arredonda pra cima o total de posts divido pela quantidade de posts por pagina
     const totalPages = Math.ceil(totalPosts / postsPerPage);
 
@@ -41,6 +33,8 @@ async function getAllPosts(page) {
       // Pula os posts
       skip: skipPosts,
 
+      // Filtragem
+      where,
       // Ordem dos posts, em decrescente
       orderBy: {
         createdAt: 'desc'
@@ -62,7 +56,9 @@ async function getAllPosts(page) {
 export default async function Home({ searchParams }) {
   // searchParams são os paramentos de busca na navegação! ?page=1, ?page=2...
   const currentPage = parseInt(searchParams?.page) || 1;
-  const { data, prev, next } = await getAllPosts(currentPage);
+  const searchTerm = searchParams?.q;
+
+  const { data, prev, next } = await getAllPosts(currentPage, searchTerm);
 
   return (
       <main className={styles.main}>
