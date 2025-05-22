@@ -14,7 +14,7 @@ export default function Error({ error }) {
   
   return (
     <div className={styles.errorBlock}>
-      <Image src={error500} />
+      <Image src={error500} alt="Imagem de um robo realista decepcionado por não encontrar a página" />
       <h2 className={styles.errorTitle}>Opa! Um erro ocorreu.</h2>
       <p>Não conseguimos carregar a página, volte para seguir navegando.</p>
       <Link href="/">Voltar ao feed <ArrowBack color="#BFFFC3" /></Link>
