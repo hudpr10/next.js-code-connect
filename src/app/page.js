@@ -23,7 +23,12 @@ import db from "../../prisma/db";
 
 async function getAllPosts(page) {
   try {
-    const data = await db.post.findMany();
+    // Inclui o relacionamento com author
+    const data = await db.post.findMany({
+      include: {
+        author: true
+      }
+    });
 
     return { data, prev: null, next: null };
   } catch(error) {
